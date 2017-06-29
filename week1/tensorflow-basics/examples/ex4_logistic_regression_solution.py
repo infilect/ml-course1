@@ -41,7 +41,7 @@ logits = tf.matmul(X, w) + b
 
 # Step 5: define loss function
 # use cross entropy of softmax of logits as the loss function
-entropy = tf.nn.softmax_cross_entropy_with_logits(logits, Y, name='loss')
+entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y, name='loss')
 loss = tf.reduce_mean(entropy) # computes the mean over all the examples in the batch
 
 # Step 6: define training op
@@ -62,9 +62,9 @@ with tf.Session() as sess:
 			X_batch, Y_batch = mnist.train.next_batch(batch_size)
 			_, loss_batch = sess.run([optimizer, loss], feed_dict={X: X_batch, Y:Y_batch}) 
 			total_loss += loss_batch
-		print 'Average loss epoch {0}: {1}'.format(i, total_loss/n_batches)
+		print('Average loss epoch {0}: {1}'.format(i, total_loss/n_batches))
 
-	print 'Total time: {0} seconds'.format(time.time() - start_time)
+	print('Total time: {0} seconds'.format(time.time() - start_time))
 
 	print('Optimization Finished!') # should be around 0.35 after 25 epochs
 
@@ -79,6 +79,6 @@ with tf.Session() as sess:
 		accuracy = tf.reduce_sum(tf.cast(correct_preds, tf.float32)) # need numpy.count_nonzero(boolarr) :(
 		total_correct_preds += sess.run(accuracy)	
 	
-	print 'Accuracy {0}'.format(total_correct_preds/mnist.test.num_examples)
+	print('Accuracy {0}'.format(total_correct_preds/mnist.test.num_examples))
 
 	writer.close()

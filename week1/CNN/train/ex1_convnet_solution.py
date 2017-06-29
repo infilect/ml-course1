@@ -25,6 +25,10 @@ SKIP_STEP = 10
 DROPOUT = 0.75
 N_EPOCHS = 1
 
+checkpoints_dir = 'checkpoints/mnist_convnet_new'
+if not os.path.exists(checkpoints_dir):
+    os.makedirs(checkpoints_dir)
+
 # Step 3: create placeholders for features and labels
 # each image in the MNIST data is of shape 28*28 = 784
 # therefore, each image is represented with a 1x784 tensor
@@ -104,7 +108,7 @@ with tf.variable_scope('softmax_linear') as scope:
 # use softmax cross entropy with logits as the loss function
 # compute mean cross entropy, softmax is applied internally
 with tf.name_scope('loss'):
-    entropy = tf.nn.softmax_cross_entropy_with_logits(logits, Y)
+    entropy = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=Y)
     loss = tf.reduce_mean(entropy, name='loss')
 
 # Step 7: define training op
@@ -117,7 +121,7 @@ with tf.Session() as sess:
     saver = tf.train.Saver()
     # to visualize using TensorBoard
     writer = tf.summary.FileWriter('./my_graph/mnist', sess.graph)
-    ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/convnet_mnist_new/checkpoint'))
+    ckpt = tf.train.get_checkpoint_state(os.path.dirname(checkpoints_dir + '/checkpoint'))
     # if that checkpoint exists, restore from checkpoint
     if ckpt and ckpt.model_checkpoint_path:
         saver.restore(sess, ckpt.model_checkpoint_path)
@@ -136,7 +140,7 @@ with tf.Session() as sess:
         if (index + 1) % SKIP_STEP == 0:
             print('Average loss at step {}: {:5.1f}'.format(index + 1, total_loss / SKIP_STEP))
             total_loss = 0.0
-            saver.save(sess, 'checkpoints/convnet_mnist_new/mnist-convnet', index)
+            saver.save(sess, checkpoints_dir + '/mnist-convnet', index)
     
     print("Optimization Finished!") # should be around 0.35 after 25 epochs
     print("Total time: {0} seconds".format(time.time() - start_time))

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import xlrd
 
-DATA_FILE = '../data/fire_theft.xls'
+DATA_FILE = 'data/fire_theft.xls'
 
 # Step 1: read in data from the .xls file
 book = xlrd.open_workbook(DATA_FILE, encoding_override="utf-8")
@@ -56,8 +56,11 @@ with tf.Session() as sess:
 	w_value, b_value = sess.run([w, b]) 
 
 # plot the results
-X, Y = data.T[0], data.T[1]
-plt.plot(X, Y, 'bo', label='Real data')
-plt.plot(X, X * w_value + b_value, 'r', label='Predicted data')
-plt.legend()
+try:
+    X, Y = data.T[0], data.T[1]
+    plt.plot(X, Y, 'bo', label='Real data')
+    plt.plot(X, X * w_value + b_value, 'r', label='Predicted data')
+    plt.legend()
+except Exception as e:
+    print("can not render")
 plt.show()
