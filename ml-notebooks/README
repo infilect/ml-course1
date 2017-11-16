@@ -1,0 +1,34 @@
+DATASETS
+
+Classification
+
+    Prediction task is to determine whether a person makes over 50K a year. 
+    https://archive.ics.uci.edu/ml/datasets/adult
+
+Clustering
+    
+    Whole Sale Customers Dataset
+    https://archive.ics.uci.edu/ml/datasets/Wholesale+customers
+
+
+Recommendation
+
+    MovieLens dataset
+    http://files.grouplens.org/datasets/movielens/ml-100k-README.txt
+
+
+Time series
+
+    Onion prices in Bangalore
+    http://nhrdf.org/en-us/MonthWiseMarketArrivals
+
+
+
+Offline Datasets
+
+Recommendation : Million song dataset https://labrosa.ee.columbia.edu/millionsong/ 
+
+Others: Any from https://archive.ics.uci.edu/ml/datasets.html should suffice
+                 https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research#Multivariate_data
+                 
+                 Not able to decide which one
